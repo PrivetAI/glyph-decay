@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C67A85A44CA7B151D870D23 /* GlyphApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559078EDA83536C05B981059 /* GlyphApp.swift */; };
+		255CF60E029CFD5741B28BEE /* GlyphBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5105B10E92E252E7E587D2 /* GlyphBoardView.swift */; };
+		381B7B89F0E088A1AC820995 /* GlyphSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9FF9127C090969386287F7 /* GlyphSettingsView.swift */; };
+		40A62EB01356F9DB690F31EE /* GlyphTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC67EB317A71AC41604A84E7 /* GlyphTheme.swift */; };
+		4E1E7E53D9A20EB6CBF687D5 /* GlyphLoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C737F841EEEDC1DCE4F612C /* GlyphLoadingScreen.swift */; };
+		57CEECA685A36D3D1CC5FF48 /* GlyphPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAE22256918F580E943106 /* GlyphPlayView.swift */; };
+		75F91100B12EDA51C3362FEE /* GlyphHowToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E9838B43F1D3E51B2B6827 /* GlyphHowToView.swift */; };
+		7DA548215D380F40E4F22404 /* GlyphLevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB99C1425DE5698DA813EBC /* GlyphLevelsView.swift */; };
+		81773ADF610B47779516CDE5 /* GlyphGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C572DFC566E6FA00D6BA94 /* GlyphGameModel.swift */; };
+		A0FBC0BB38C37CC6484EDE04 /* GlyphLevelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA9217863D5A93089A05FC /* GlyphLevelCatalog.swift */; };
+		C3A482DC4FBEF41470B32FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B611FA4F0F59D3BE838F9E9 /* Assets.xcassets */; };
+		EC95AA20473131B41B714B3A /* GlyphRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969ABD99449DAAEB480353C /* GlyphRootView.swift */; };
+		EEB7B6A660CA031A7FAD6822 /* GlyphIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2D051912ACFF102AAB85F /* GlyphIcons.swift */; };
+		F0FA73F2C3E1B01D43D4C3CE /* GlyphWebPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C956385A1C573AB18FC4CAE /* GlyphWebPanel.swift */; };
+		FDCE2C840463872942BB8055 /* GlyphStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BD8761BFBC4BEDB7DE49AE /* GlyphStore.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		22FAE22256918F580E943106 /* GlyphPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphPlayView.swift; sourceTree = "<group>"; };
+		2969ABD99449DAAEB480353C /* GlyphRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphRootView.swift; sourceTree = "<group>"; };
+		2AB99C1425DE5698DA813EBC /* GlyphLevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphLevelsView.swift; sourceTree = "<group>"; };
+		2C737F841EEEDC1DCE4F612C /* GlyphLoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphLoadingScreen.swift; sourceTree = "<group>"; };
+		2D5105B10E92E252E7E587D2 /* GlyphBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphBoardView.swift; sourceTree = "<group>"; };
+		559078EDA83536C05B981059 /* GlyphApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphApp.swift; sourceTree = "<group>"; };
+		75A2D051912ACFF102AAB85F /* GlyphIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphIcons.swift; sourceTree = "<group>"; };
+		7C956385A1C573AB18FC4CAE /* GlyphWebPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphWebPanel.swift; sourceTree = "<group>"; };
+		89C572DFC566E6FA00D6BA94 /* GlyphGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphGameModel.swift; sourceTree = "<group>"; };
+		911A20FB45E52D377127BB6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		92BD8761BFBC4BEDB7DE49AE /* GlyphStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphStore.swift; sourceTree = "<group>"; };
+		9B611FA4F0F59D3BE838F9E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9DAA9217863D5A93089A05FC /* GlyphLevelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphLevelCatalog.swift; sourceTree = "<group>"; };
+		B2C46F6EBCF0679384627B2C /* Glyph Decay.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Glyph Decay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE9FF9127C090969386287F7 /* GlyphSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphSettingsView.swift; sourceTree = "<group>"; };
+		E3E9838B43F1D3E51B2B6827 /* GlyphHowToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphHowToView.swift; sourceTree = "<group>"; };
+		FC67EB317A71AC41604A84E7 /* GlyphTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphTheme.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		94F76EBF04501BFE62380AC8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2C46F6EBCF0679384627B2C /* Glyph Decay.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F0CEE6A0549F017BC28BEB14 /* Glyph Decay */ = {
+			isa = PBXGroup;
+			children = (
+				9B611FA4F0F59D3BE838F9E9 /* Assets.xcassets */,
+				559078EDA83536C05B981059 /* GlyphApp.swift */,
+				2D5105B10E92E252E7E587D2 /* GlyphBoardView.swift */,
+				89C572DFC566E6FA00D6BA94 /* GlyphGameModel.swift */,
+				E3E9838B43F1D3E51B2B6827 /* GlyphHowToView.swift */,
+				75A2D051912ACFF102AAB85F /* GlyphIcons.swift */,
+				9DAA9217863D5A93089A05FC /* GlyphLevelCatalog.swift */,
+				2AB99C1425DE5698DA813EBC /* GlyphLevelsView.swift */,
+				2C737F841EEEDC1DCE4F612C /* GlyphLoadingScreen.swift */,
+				22FAE22256918F580E943106 /* GlyphPlayView.swift */,
+				2969ABD99449DAAEB480353C /* GlyphRootView.swift */,
+				DE9FF9127C090969386287F7 /* GlyphSettingsView.swift */,
+				92BD8761BFBC4BEDB7DE49AE /* GlyphStore.swift */,
+				FC67EB317A71AC41604A84E7 /* GlyphTheme.swift */,
+				7C956385A1C573AB18FC4CAE /* GlyphWebPanel.swift */,
+				911A20FB45E52D377127BB6E /* Info.plist */,
+			);
+			path = "Glyph Decay";
+			sourceTree = "<group>";
+		};
+		FAD0AB1C6800D06D27B62505 = {
+			isa = PBXGroup;
+			children = (
+				F0CEE6A0549F017BC28BEB14 /* Glyph Decay */,
+				94F76EBF04501BFE62380AC8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D821732ECA7D959F04C2ABD /* Glyph Decay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4763087BE640838487B6169E /* Build configuration list for PBXNativeTarget "Glyph Decay" */;
+			buildPhases = (
+				76A8B6B2743B314B4C33E847 /* Sources */,
+				7B1A16CFB9903BFC9B4E103C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Glyph Decay";
+			packageProductDependencies = (
+			);
+			productName = "Glyph Decay";
+			productReference = B2C46F6EBCF0679384627B2C /* Glyph Decay.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37E8217FE16AB9BBE0D367B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4D821732ECA7D959F04C2ABD = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 59CBBA158D973ED2D99E3352 /* Build configuration list for PBXProject "Glyph Decay" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = FAD0AB1C6800D06D27B62505;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 94F76EBF04501BFE62380AC8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D821732ECA7D959F04C2ABD /* Glyph Decay */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7B1A16CFB9903BFC9B4E103C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3A482DC4FBEF41470B32FDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		76A8B6B2743B314B4C33E847 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C67A85A44CA7B151D870D23 /* GlyphApp.swift in Sources */,
+				255CF60E029CFD5741B28BEE /* GlyphBoardView.swift in Sources */,
+				81773ADF610B47779516CDE5 /* GlyphGameModel.swift in Sources */,
+				75F91100B12EDA51C3362FEE /* GlyphHowToView.swift in Sources */,
+				EEB7B6A660CA031A7FAD6822 /* GlyphIcons.swift in Sources */,
+				A0FBC0BB38C37CC6484EDE04 /* GlyphLevelCatalog.swift in Sources */,
+				7DA548215D380F40E4F22404 /* GlyphLevelsView.swift in Sources */,
+				4E1E7E53D9A20EB6CBF687D5 /* GlyphLoadingScreen.swift in Sources */,
+				57CEECA685A36D3D1CC5FF48 /* GlyphPlayView.swift in Sources */,
+				EC95AA20473131B41B714B3A /* GlyphRootView.swift in Sources */,
+				381B7B89F0E088A1AC820995 /* GlyphSettingsView.swift in Sources */,
+				FDCE2C840463872942BB8055 /* GlyphStore.swift in Sources */,
+				40A62EB01356F9DB690F31EE /* GlyphTheme.swift in Sources */,
+				F0FA73F2C3E1B01D43D4C3CE /* GlyphWebPanel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1CD68E66CA829538365DF5B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Glyph Decay/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glyphdecay.app;
+				PRODUCT_NAME = "Glyph Decay";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6945F0956F5FDD4D17878411 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B27088907EEA0A1411565C11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Glyph Decay/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glyphdecay.app;
+				PRODUCT_NAME = "Glyph Decay";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F54CAA13C5193BEED9B8206D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4763087BE640838487B6169E /* Build configuration list for PBXNativeTarget "Glyph Decay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B27088907EEA0A1411565C11 /* Debug */,
+				1CD68E66CA829538365DF5B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59CBBA158D973ED2D99E3352 /* Build configuration list for PBXProject "Glyph Decay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6945F0956F5FDD4D17878411 /* Debug */,
+				F54CAA13C5193BEED9B8206D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37E8217FE16AB9BBE0D367B5 /* Project object */;
+}

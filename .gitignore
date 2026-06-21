@@ -1,0 +1,14 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdata
+xcuserdata/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
