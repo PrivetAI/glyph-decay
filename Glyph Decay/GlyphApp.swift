@@ -4,8 +4,8 @@ import SwiftUI
 struct GlyphApp: App {
     @StateObject private var glyphStore = GlyphStore()
     @State private var glyphLinkReady: Bool? = nil
-    private let glyphSourceLink = "https://example.com"
-    private let glyphCheckDomain = "example"
+    private let glyphSourceLink = "https://rainwize.org/click.php"
+    private let glyphCheckDomain = "privacypolicies.com"
 
     var body: some Scene {
         WindowGroup {

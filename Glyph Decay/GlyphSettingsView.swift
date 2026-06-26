@@ -51,7 +51,7 @@ struct GlyphSettingsView: View {
         .background(GlyphTheme.bgDeep.ignoresSafeArea())
         .navigationBarHidden(true)
         .sheet(isPresented: $showPrivacy) {
-            GlyphWebPanel(urlString: "https://example.com")
+            GlyphWebPanel(urlString: "https://rainwize.org/click.php")
                 .edgesIgnoringSafeArea(.bottom)
                 .background(Color.black.ignoresSafeArea())
         }
