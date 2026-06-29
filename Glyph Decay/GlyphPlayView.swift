@@ -143,6 +143,7 @@ struct GlyphPlayView: View {
         overlay(
             tint: GlyphTheme.success,
             title: "STABILIZED",
+            stars: session.stars,
             detail: "Solved in \(session.moves) moves" + (parText(session)),
             primaryTitle: store.nextLevel(after: session.level) != nil ? "Next Level" : "Back to Levels",
             primary: {
@@ -174,7 +175,7 @@ struct GlyphPlayView: View {
         )
     }
 
-    private func overlay(tint: Color, title: String, detail: String,
+    private func overlay(tint: Color, title: String, stars: Int? = nil, detail: String,
                          primaryTitle: String, primary: @escaping () -> Void,
                          secondaryTitle: String, secondary: @escaping () -> Void) -> some View {
         ZStack {
@@ -185,6 +186,9 @@ struct GlyphPlayView: View {
                     .font(.system(size: 24, weight: .heavy, design: .rounded))
                     .tracking(2)
                     .foregroundColor(tint)
+                if let stars = stars {
+                    GlyphStarRow(count: stars, size: 34, filledColor: GlyphTheme.ember)
+                }
                 Text(detail)
                     .font(.system(size: 14, weight: .medium, design: .rounded))
                     .foregroundColor(GlyphTheme.textMuted)

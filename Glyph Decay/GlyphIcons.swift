@@ -195,6 +195,54 @@ struct GlyphLockIcon: View {
     }
 }
 
+// A five-point star, filled (earned) or outlined (empty). No SF Symbols/emoji.
+struct GlyphStarIcon: View {
+    var size: CGFloat
+    var filled: Bool
+    var color: Color
+    var body: some View {
+        Canvas { ctx, sz in
+            let w = sz.width, h = sz.height
+            let cx = w * 0.5, cy = h * 0.54
+            let outer = min(w, h) * 0.46
+            let inner = outer * 0.42
+            var p = Path()
+            for i in 0..<10 {
+                let a = -Double.pi / 2 + Double(i) * (Double.pi / 5)
+                let rr = (i % 2 == 0) ? outer : inner
+                let pt = CGPoint(x: cx + CGFloat(rr) * CGFloat(cos(a)),
+                                 y: cy + CGFloat(rr) * CGFloat(sin(a)))
+                if i == 0 { p.move(to: pt) } else { p.addLine(to: pt) }
+            }
+            p.closeSubpath()
+            if filled {
+                ctx.fill(p, with: .color(color))
+            } else {
+                ctx.stroke(p, with: .color(color),
+                           style: StrokeStyle(lineWidth: max(1, w * 0.08), lineJoin: .round))
+            }
+        }
+        .frame(width: size, height: size)
+    }
+}
+
+// A row of up to 3 stars; `count` are filled.
+struct GlyphStarRow: View {
+    var count: Int
+    var size: CGFloat
+    var filledColor: Color = GlyphTheme.ember
+    var emptyColor: Color = GlyphTheme.textFaint
+    var spacing: CGFloat = 3
+    var body: some View {
+        HStack(spacing: spacing) {
+            ForEach(0..<3, id: \.self) { i in
+                GlyphStarIcon(size: size, filled: i < count,
+                              color: i < count ? filledColor : emptyColor)
+            }
+        }
+    }
+}
+
 struct GlyphChevronIcon: View {
     var size: CGFloat
     var color: Color

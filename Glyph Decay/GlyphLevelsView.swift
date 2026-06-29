@@ -46,6 +46,7 @@ struct GlyphLevelsView: View {
         let unlocked = store.isUnlocked(level)
         let completed = store.progress.isCompleted(level.id)
         let best = store.progress.best(level.id)
+        let stars = store.progress.stars(level.id)
         return Button(action: {
             if unlocked { store.startLevel(level) }
         }) {
@@ -70,6 +71,12 @@ struct GlyphLevelsView: View {
                 Text("\(level.rowsText)")
                     .font(.system(size: 10, weight: .medium, design: .rounded))
                     .foregroundColor(GlyphTheme.textFaint)
+                if completed {
+                    GlyphStarRow(count: stars, size: 13, filledColor: GlyphTheme.ember)
+                        .frame(height: 14)
+                } else {
+                    Color.clear.frame(height: 14)
+                }
                 if let best = best {
                     Text("best \(best)")
                         .font(.system(size: 10, weight: .bold, design: .rounded))

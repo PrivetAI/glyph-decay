@@ -14,10 +14,13 @@ struct GlyphHowToView: View {
                      body: "Each rune holds a charge. Raise every rune to its target number — shown in the corner of each cell — to stabilize the board and win.")
 
                 rule(title: "Place Glyphs",
-                     body: "Tap a rune to place the selected glyph. Kindle adds +1 to a rune and its four neighbours. Surge adds +2 to one rune. Drain removes charge. Mix them to shape the board.")
+                     body: "Tap a rune to place the selected glyph. Kindle adds +1 to a rune and its four orthogonal neighbours. Surge adds +2 to one rune. Drain removes -1 from a rune and its neighbours. Bloom adds +1 to a rune and its four diagonal corners. Quell removes -2 from one rune. New glyphs unlock as you progress.")
 
                 rule(title: "Everything Decays",
                      body: "After every glyph you place, the whole board loses 1 charge. You must reach the target before the decay clock — your moves left — runs out.")
+
+                rule(title: "Earn Stars",
+                     body: "Each solved level scores up to three stars. Match par to earn all three; finishing with a few extra moves earns two, and any solve earns one. Replay levels to perfect your score.")
 
                 rule(title: "Undo & Reset",
                      body: "Made a wrong move? Undo a step, or reset the level to its starting state. Every level is guaranteed solvable.")

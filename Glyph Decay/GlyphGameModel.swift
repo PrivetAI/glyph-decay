@@ -7,6 +7,8 @@ enum GlyphKind: Int, CaseIterable, Codable, Identifiable {
     case boost   // +1 self, +1 orthogonal neighbours
     case pulse   // +2 self only
     case siphon  // -1 self, -1 orthogonal neighbours
+    case bloom   // +1 self, +1 diagonal neighbours
+    case quell   // -2 self only
 
     var id: Int { rawValue }
 
@@ -15,6 +17,8 @@ enum GlyphKind: Int, CaseIterable, Codable, Identifiable {
         case .boost:  return "Kindle"
         case .pulse:  return "Surge"
         case .siphon: return "Drain"
+        case .bloom:  return "Bloom"
+        case .quell:  return "Quell"
         }
     }
 
@@ -23,6 +27,8 @@ enum GlyphKind: Int, CaseIterable, Codable, Identifiable {
         case .boost:  return "+1 charge to the rune and its four neighbours."
         case .pulse:  return "+2 charge to the single tapped rune only."
         case .siphon: return "-1 charge from the rune and its four neighbours."
+        case .bloom:  return "+1 charge to the rune and its four diagonal corners."
+        case .quell:  return "-2 charge from the single tapped rune only."
         }
     }
 
@@ -35,6 +41,10 @@ enum GlyphKind: Int, CaseIterable, Codable, Identifiable {
             return [(0,0,2)]
         case .siphon:
             return [(0,0,-1),(-1,0,-1),(1,0,-1),(0,-1,-1),(0,1,-1)]
+        case .bloom:
+            return [(0,0,1),(-1,-1,1),(-1,1,1),(1,-1,1),(1,1,1)]
+        case .quell:
+            return [(0,0,-2)]
         }
     }
 }
@@ -116,20 +126,20 @@ struct GlyphRNG: RandomNumberGenerator {
     }
 }
 
-// MARK: - Level generation (GUARANTEED solvable by construction + verification)
+// MARK: - Level generation (GUARANTEED solvable by FORWARD construction)
 //
-// Strategy: build a level FORWARD from the target.
-//   1. target = every cell at full charge (maxCharge).
-//   2. Construct a known solution as a sequence of moves. We simulate forward:
-//        start = target, then run the solution in REVERSE conceptually by
-//        un-decaying and un-applying. Because clamping makes inverse application
-//        lossy, we instead SIMULATE forward and KEEP the solution that lands on
-//        target, regenerating until verified.
-//
-// Concretely we pick a random start board, then run a greedy/limited search to
-// find a solving sequence under the decay rule. Search depth is bounded; if it
-// fails we regenerate with a fresh seed. Every returned level has a solution we
-// verified by simulation, so solvability is guaranteed for shipped levels.
+// Strategy: generate every level FORWARD so the target is DEFINED as the result
+// of a known move sequence — solvability is guaranteed, never pre-solved.
+//   1. Build a random START board (each cell a random value in 0...maxCharge).
+//   2. Build a random SOLUTION of `solutionLen` moves (random allowed glyph at a
+//      random cell each step).
+//   3. target = simulate(start, solution).cells. Because the solution literally
+//      produces the target, replaying it from the start always wins.
+//   4. Reject trivial/degenerate boards (start == target, an all-equal target, or
+//      an all-equal start) and retry with the next deterministic seed. A final
+//      perturbation guarantees a non-trivial level even in the worst case.
+//   5. par = solution length; moveLimit = solutionLen + a fair buffer.
+// Deterministic: the same seed always yields the same level.
 enum GlyphLevelFactory {
 
     // Simulate playing `moves` from `start`: each move = apply glyph then decay.
@@ -143,31 +153,29 @@ enum GlyphLevelFactory {
         return b
     }
 
-    // Apply a glyph's deltas WITHOUT clamping (used by reverse construction to
-    // detect whether a step would have clamped — if it stays in range, the forward
-    // replay is exact).
-    private static func rawApply(_ cells: [Int], kind: GlyphKind, r: Int, c: Int,
-                                 rows: Int, cols: Int, sign: Int) -> [Int]? {
-        var out = cells
-        for (dr, dc, delta) in kind.offsets {
-            let nr = r + dr, nc = c + dc
-            guard nr >= 0, nr < rows, nc >= 0, nc < cols else { continue }
-            out[nr * cols + nc] += sign * delta
+    private static func randomStart(rows: Int, cols: Int, maxCharge: Int,
+                                    rng: inout GlyphRNG) -> GlyphBoard {
+        let n = rows * cols
+        var cells = [Int](repeating: 0, count: n)
+        for i in 0..<n {
+            cells[i] = Int(rng.next() % UInt64(maxCharge + 1))
         }
-        return out
+        return GlyphBoard(rows: rows, cols: cols, maxCharge: maxCharge, cells: cells)
     }
 
-    // Build one level of the given dimensions. GUARANTEED solvable by exact
-    // reverse construction: we start at the target board and step BACKWARD,
-    // building both the start board and a known forward solution. Each reverse
-    // step is the inverse of "apply glyph, then decay":
-    //   reverse: pre = (post + 1 everywhere)  then  un-apply glyph deltas.
-    // We only accept a reverse step if every intermediate value stays within
-    // [0, maxCharge]; that proves the corresponding FORWARD step never clamps,
-    // so replaying the recorded moves from the start reproduces the target
-    // EXACTLY. We additionally verify by full forward simulation. This is O(L)
-    // per level — fast and 100% solvable. If a step can't be found we just stop
-    // early (still solvable with the moves accumulated so far).
+    private static func randomSolution(rows: Int, cols: Int, allowed: [GlyphKind],
+                                       length: Int, rng: inout GlyphRNG) -> [GlyphMove] {
+        var moves: [GlyphMove] = []
+        for _ in 0..<max(1, length) {
+            let kind = allowed[Int(rng.next() % UInt64(allowed.count))]
+            let r = Int(rng.next() % UInt64(rows))
+            let c = Int(rng.next() % UInt64(cols))
+            moves.append(GlyphMove(kind: kind, r: r, c: c))
+        }
+        return moves
+    }
+
+    // Build one level of the given dimensions by forward construction.
     static func makeLevel(id: Int,
                           rows: Int,
                           cols: Int,
@@ -176,70 +184,68 @@ enum GlyphLevelFactory {
                           solutionLen: Int,
                           name: String,
                           seed: UInt64) -> GlyphLevel {
-        let n = rows * cols
-        let target = Array(repeating: maxCharge, count: n)
 
-        var bestStart = target
-        var bestMoves: [GlyphMove] = []
+        // Candidates: prefer a "rich" non-trivial board; keep an "acceptable"
+        // (start != target) fallback in case richness is hard to hit.
+        var richStart: GlyphBoard? = nil
+        var richMoves: [GlyphMove] = []
+        var richTarget: [Int] = []
 
-        for attempt in 0..<8 {
+        var okStart: GlyphBoard? = nil
+        var okMoves: [GlyphMove] = []
+        var okTarget: [Int] = []
+
+        for attempt in 0..<96 {
             var rng = GlyphRNG(seed: seed &+ UInt64(attempt) &* 0x100000001B3)
-            var post = target                 // board AFTER all remaining forward moves
-            var movesReversed: [GlyphMove] = []
+            let start = randomStart(rows: rows, cols: cols, maxCharge: maxCharge, rng: &rng)
+            let moves = randomSolution(rows: rows, cols: cols, allowed: allowed,
+                                       length: solutionLen, rng: &rng)
+            let target = simulate(start: start, moves: moves).cells
 
-            var steps = 0
-            var guardCount = 0
-            while steps < solutionLen && guardCount < solutionLen * 12 {
-                guardCount += 1
-                // Reverse decay: every cell +1. If any cell would exceed maxCharge,
-                // this reverse step is invalid (forward decay couldn't have produced it
-                // without clamping the corresponding cell to 0 — we avoid that branch).
-                var pre = post
-                var ok = true
-                for i in 0..<n {
-                    pre[i] += 1
-                    if pre[i] > maxCharge { ok = false; break }
-                }
-                if !ok { continue }
+            // Must require at least one move to solve.
+            if target == start.cells { continue }
 
-                // Pick a random allowed glyph + cell, un-apply it (sign = -1).
-                let kind = allowed[Int(rng.next() % UInt64(allowed.count))]
-                let r = Int(rng.next() % UInt64(rows))
-                let c = Int(rng.next() % UInt64(cols))
-                guard let candidate = rawApply(pre, kind: kind, r: r, c: c,
-                                               rows: rows, cols: cols, sign: -1) else { continue }
-                // Accept only if all values remain in [0, maxCharge] → no clamping fwd.
-                if candidate.contains(where: { $0 < 0 || $0 > maxCharge }) { continue }
-
-                post = candidate
-                movesReversed.append(GlyphMove(kind: kind, r: r, c: c))
-                steps += 1
+            // First start!=target candidate is our safety net.
+            if okStart == nil {
+                okStart = start; okMoves = moves; okTarget = target
             }
 
-            if movesReversed.isEmpty { continue }
-            let start = GlyphBoard(rows: rows, cols: cols, maxCharge: maxCharge, cells: post)
-            if start.cells == target { continue }      // skip trivial
-            let solution = Array(movesReversed.reversed())
-
-            // Verify by exact forward simulation.
-            let end = simulate(start: start, moves: solution)
-            if end.cells == target {
-                bestStart = post
-                bestMoves = solution
+            // "Rich": neither target nor start is a single repeated value.
+            let targetVaried = !target.allSatisfy { $0 == target.first }
+            let startVaried  = !start.cells.allSatisfy { $0 == start.cells.first }
+            if targetVaried && startVaried {
+                richStart = start; richMoves = moves; richTarget = target
                 break
             }
         }
 
-        if bestMoves.isEmpty {
-            // Guaranteed-solvable fallback: target board is solved in 0 moves.
-            bestStart = target
-            bestMoves = []
+        var finalStart: GlyphBoard
+        var finalMoves: [GlyphMove]
+        var finalTarget: [Int]
+
+        if let s = richStart {
+            finalStart = s; finalMoves = richMoves; finalTarget = richTarget
+        } else if let s = okStart {
+            finalStart = s; finalMoves = okMoves; finalTarget = okTarget
+        } else {
+            // Extreme fallback: perturb a fresh start until start != target.
+            var rng = GlyphRNG(seed: seed ^ 0xD1CE_F00D_BAAD_5EED)
+            var start = randomStart(rows: rows, cols: cols, maxCharge: maxCharge, rng: &rng)
+            let moves = randomSolution(rows: rows, cols: cols, allowed: allowed,
+                                       length: solutionLen, rng: &rng)
+            var target = simulate(start: start, moves: moves).cells
+            var bump = 0
+            while target == start.cells && bump < rows * cols {
+                start.cells[bump] = (start.cells[bump] + 1) % (maxCharge + 1)
+                target = simulate(start: start, moves: moves).cells
+                bump += 1
+            }
+            finalStart = start; finalMoves = moves; finalTarget = target
         }
 
-        let start = GlyphBoard(rows: rows, cols: cols, maxCharge: maxCharge, cells: bestStart)
-        let par = bestMoves.count
-        let limit = max(3, par + max(2, par / 2))   // generous decay clock
-        return GlyphLevel(id: id, name: name, board: start, target: target,
-                          allowedGlyphs: allowed, moveLimit: limit, par: par)
+        let par = finalMoves.count
+        let moveLimit = solutionLen + max(3, solutionLen / 2)   // fair decay clock buffer
+        return GlyphLevel(id: id, name: name, board: finalStart, target: finalTarget,
+                          allowedGlyphs: allowed, moveLimit: moveLimit, par: par)
     }
 }

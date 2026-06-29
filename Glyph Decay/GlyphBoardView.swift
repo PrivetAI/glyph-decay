@@ -65,13 +65,23 @@ struct GlyphBoardView: View {
         }
     }
 
+    // Charge pips wrap into rows of up to 4 so even a high charge (6-7) never
+    // overflows a small cell horizontally.
     private func chargePips(value: Int, side: CGFloat) -> some View {
-        let pip = max(4, side * 0.12)
-        return HStack(spacing: pip * 0.5) {
-            ForEach(0..<max(0, value), id: \.self) { _ in
-                Circle()
-                    .fill(GlyphTheme.textPrimary.opacity(0.85))
-                    .frame(width: pip, height: pip)
+        let maxPerRow = 4
+        let pip = max(3, side * 0.11)
+        let rowCounts: [Int] = stride(from: 0, to: max(0, value), by: maxPerRow).map { start in
+            min(maxPerRow, value - start)
+        }
+        return VStack(spacing: pip * 0.5) {
+            ForEach(0..<rowCounts.count, id: \.self) { ri in
+                HStack(spacing: pip * 0.5) {
+                    ForEach(0..<rowCounts[ri], id: \.self) { _ in
+                        Circle()
+                            .fill(GlyphTheme.textPrimary.opacity(0.85))
+                            .frame(width: pip, height: pip)
+                    }
+                }
             }
         }
     }

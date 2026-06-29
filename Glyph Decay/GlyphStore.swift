@@ -2,14 +2,36 @@ import Foundation
 import SwiftUI
 
 // Persisted progress (Codable to a file in Application Support).
+//
+// SAVE SAFETY: this struct is loaded with `try? JSONDecoder()`. Synthesized
+// Decodable throws if a stored key is missing, which would silently wipe an old
+// save whenever we add a field. The custom init(from:) below uses
+// decodeIfPresent(...) ?? default for EVERY property, so adding fields (like
+// bestStars) never wipes existing progress.
 struct GlyphProgress: Codable {
     // levelID -> best (fewest) moves used to win
     var bestMoves: [Int: Int] = [:]
     // set of completed level IDs
     var completed: [Int] = []
+    // levelID -> best (most) stars earned (0...3)
+    var bestStars: [Int: Int] = [:]
+
+    init() {}
+
+    enum CodingKeys: String, CodingKey {
+        case bestMoves, completed, bestStars
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        bestMoves = try c.decodeIfPresent([Int: Int].self, forKey: .bestMoves) ?? [:]
+        completed = try c.decodeIfPresent([Int].self, forKey: .completed) ?? []
+        bestStars = try c.decodeIfPresent([Int: Int].self, forKey: .bestStars) ?? [:]
+    }
 
     func isCompleted(_ id: Int) -> Bool { completed.contains(id) }
     func best(_ id: Int) -> Int? { bestMoves[id] }
+    func stars(_ id: Int) -> Int { bestStars[id] ?? 0 }
 }
 
 // MARK: - Live play session for one level (value-type board so SwiftUI re-renders).
@@ -33,6 +55,17 @@ struct GlyphSession {
     }
 
     var movesLeft: Int { max(0, level.moveLimit - moves) }
+
+    // 3-star rating from moves vs par:
+    //   3 = solved in <= par, 2 = within par + margin, 1 = solved at all.
+    static func starRating(par: Int, moves: Int) -> Int {
+        let p = max(1, par)
+        if moves <= p { return 3 }
+        if moves <= p + max(2, p / 2) { return 2 }
+        return 1
+    }
+
+    var stars: Int { won ? GlyphSession.starRating(par: level.par, moves: moves) : 0 }
 
     mutating func place(_ kind: GlyphKind, at r: Int, _ c: Int) {
         guard !won, !failed else { return }
@@ -132,6 +165,10 @@ final class GlyphStore: ObservableObject {
             if moves < prev { progress.bestMoves[level.id] = moves }
         } else {
             progress.bestMoves[level.id] = moves
+        }
+        let earned = GlyphSession.starRating(par: level.par, moves: moves)
+        if earned > (progress.bestStars[level.id] ?? 0) {
+            progress.bestStars[level.id] = earned
         }
         save()
     }
